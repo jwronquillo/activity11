@@ -1,0 +1,13 @@
+---
+
+- name: Install docker(Ubuntu)
+  apt:
+    name:
+      - docker.io
+    state: latest
+    update_cache: yes
+  when: ansible_distribution == "Ubuntu"
+
+- name: Instal docker(CentOS)
+  command: install docker
+  when: ansible_distribution == "CentOS"

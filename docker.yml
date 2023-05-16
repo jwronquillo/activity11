@@ -1,0 +1,28 @@
+- hosts: all
+  become: true
+  pre_tasks:
+
+    - name: Ubuntu Update
+      tags: always
+      apt:
+        upgrade: dist
+        update_cache: yes
+      when: ansible_distribution == "Ubuntu"
+
+    - name: CentOS update
+      tags: always
+      yum:
+        update_only: yes
+        update_cache: yes
+      when: ansible_distribution == "CentOS"
+
+- hosts: DB
+  become: true
+  roles:
+    - DB
+
+- hosts: web
+  become: true
+  roles:
+    - web
+
